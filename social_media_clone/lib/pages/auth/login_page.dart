@@ -44,12 +44,8 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     customSizedBox(),
-                    TextField(
-                      decoration: customInputDecoration("Kullanıcı Adı"),
-                    ),
-                    TextField(
-                      decoration: customInputDecoration("Şifre"),
-                    ),
+                    kullaniciTextFile(),
+                    passwordTextFile(),
                     customSizedBox(),
                     Center(
                       child: TextButton(
@@ -80,14 +76,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                    // customSizedBox(),
-                    Center(
-                      child: TextButton(
-                        onPressed: () {}, 
-                        child: const Text("Hesap Oluştur", 
-                          style: TextStyle(color: Color.fromARGB(255, 37, 39, 55)),
-                        ),
-                      ),
-                    ),
+                    signUpButton(),
                   ], 
                 ),
               )
@@ -116,5 +105,30 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   );
+  }
+
+    Center signUpButton(){
+    return Center(
+      child: TextButton(
+        onPressed: () => Navigator.pushNamed(context, "/signUp"), 
+        child: Text(
+          "Hesap oluştur",
+          style: TextStyle(color: Color.fromARGB(255, 37, 39, 55))
+        ),
+      ),
+    );
+  }
+
+    TextFormField kullaniciTextFile(){
+    return TextFormField(
+      decoration: customInputDecoration("Kullanıcı Adı"),
+    );
+  }
+
+  TextFormField passwordTextFile(){
+    return TextFormField(
+      obscureText: true,
+      decoration: customInputDecoration("Şifre"),
+    );
   }
 }
