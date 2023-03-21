@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:social_media_clone/login_page.dart';
+import 'package:social_media_clone/pages/auth/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:social_media_clone/pages/auth/sign_up.dart';
 import 'firebase_options.dart';
 
 void main() async{
@@ -17,7 +18,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
+      routes: {
+        "/loginPage" :(context) => LoginPage(),
+        "/signUp" :(context) => SignUp(),
+      },
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -26,28 +32,4 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
 
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-        ),
-      ),
-    );
-  }
-}
