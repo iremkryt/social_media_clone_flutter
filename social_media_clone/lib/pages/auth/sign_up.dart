@@ -100,7 +100,15 @@ class _SignUpState extends State<SignUp> {
                   email: email, 
                   password: password
                 );
-              print(userResult.user!.uid);
+                formKey.currentState!.reset();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    "Hesap oluşturuldu. Giriş sayfasına yönlendiriyorsunuz.",
+                  ),
+                ),
+              );
+              Navigator.pushReplacementNamed(context, "/loginPage");
             } catch (e) {
               print(e.toString());
             }
