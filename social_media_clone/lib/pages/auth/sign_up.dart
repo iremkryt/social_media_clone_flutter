@@ -91,31 +91,7 @@ class _SignUpState extends State<SignUp> {
   Center signUpButton(){
     return Center(
       child: TextButton(
-        onPressed: () async {
-          if (formKey.currentState!.validate()) {
-            formKey.currentState!.save();
-            try {
-              var userResult = 
-                await firebaseAuth.createUserWithEmailAndPassword(
-                  email: email, 
-                  password: password
-                );
-                formKey.currentState!.reset();
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    "Hesap oluşturuldu. Giriş sayfasına yönlendiriyorsunuz.",
-                  ),
-                ),
-              );
-              Navigator.pushReplacementNamed(context, "/loginPage");
-            } catch (e) {
-              print(e.toString());
-            }
-          } else {
-
-          }
-        }, 
+        onPressed: signIn, 
         child: Text(
           "Hesap oluştur",
           style: TextStyle(color: Color.fromARGB(255, 37, 39, 55))
@@ -123,6 +99,32 @@ class _SignUpState extends State<SignUp> {
       ),
     );
   }
+
+  void signIn() async {
+        if (formKey.currentState!.validate()) {
+          formKey.currentState!.save();
+          try {
+            var userResult = 
+              await firebaseAuth.createUserWithEmailAndPassword(
+                email: email, 
+                password: password
+              );
+              formKey.currentState!.reset();
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  "Hesap oluşturuldu. Giriş sayfasına yönlendiriyorsunuz.",
+                ),
+              ),
+            );
+            Navigator.pushReplacementNamed(context, "/loginPage");
+          } catch (e) {
+            print(e.toString());
+          }
+        } else {
+  
+        }
+      }
   Center backToLoginPage(){
     return Center(
       child: TextButton(
