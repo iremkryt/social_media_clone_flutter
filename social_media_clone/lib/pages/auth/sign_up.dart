@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
+import 'package:social_media_clone/pages/home_page.dart';
+import 'package:social_media_clone/service/auth_service.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -12,7 +14,7 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
 
-  late String email, password;
+  late String email, fullname, username, password;
   final formKey = GlobalKey<FormState>();
   final firebaseAuth = FirebaseAuth.instance;
 
@@ -27,7 +29,7 @@ class _SignUpState extends State<SignUp> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                height: height * 0.42,
+                height: height * 0.25,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     fit: BoxFit.cover,
@@ -53,6 +55,8 @@ class _SignUpState extends State<SignUp> {
                       ),
                       customSizedBox(),
                       emailTextFile(),
+                      fullnameTextFile(),
+                      usernameTextFile(),
                       passwordTextFile(),
                       customSizedBox(),
                       signUpButton(),
@@ -91,7 +95,7 @@ class _SignUpState extends State<SignUp> {
   Center signUpButton(){
     return Center(
       child: TextButton(
-        onPressed: signIn, 
+        onPressed: signUp, 
         child: Text(
           "Hesap oluştur",
           style: TextStyle(color: Color.fromARGB(255, 37, 39, 55))
@@ -100,27 +104,12 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  void signIn() async {
+  void signUp() async {
         if (formKey.currentState!.validate()) {
           formKey.currentState!.save();
-          try {
-            var userResult = 
-              await firebaseAuth.createUserWithEmailAndPassword(
-                email: email, 
-                password: password
-              );
-              formKey.currentState!.reset();
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  "Hesap oluşturuldu. Giriş sayfasına yönlendiriyorsunuz.",
-                ),
-              ),
-            );
-            Navigator.pushReplacementNamed(context, "/loginPage");
-          } catch (e) {
-            print(e.toString());
-          }
+          final result =
+            await authService.signUp(email, username, fullname, password);
+          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: ((context) => HomePage())), (route) => false);
         } else {
   
         }
@@ -148,6 +137,34 @@ class _SignUpState extends State<SignUp> {
         email = value!;
       },
       decoration: customInputDecoration("E-mail"),
+    );
+  }
+
+  TextFormField fullnameTextFile(){
+    return TextFormField(
+      validator: (value) {
+        if (value!.isEmpty){
+          return "Bilgileri eksiksiz doldurunuz..";
+        } else {}
+      },
+      onSaved: (value) {
+        fullname = value!;
+      },
+      decoration: customInputDecoration("Ad Soyad"),
+    );
+  }
+
+  TextFormField usernameTextFile(){
+    return TextFormField(
+      validator: (value) {
+        if (value!.isEmpty){
+          return "Bilgileri eksiksiz doldurunuz..";
+        } else {}
+      },
+      onSaved: (value) {
+        username = value!;
+      },
+      decoration: customInputDecoration("Kullanıcı Adı"),
     );
   }
 
