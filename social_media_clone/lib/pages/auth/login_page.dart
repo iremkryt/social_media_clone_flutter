@@ -31,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                height: height * 0.42,
+                height: height * 0.25,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     fit: BoxFit.cover,
