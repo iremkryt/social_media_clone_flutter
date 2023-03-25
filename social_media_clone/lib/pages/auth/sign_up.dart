@@ -17,6 +17,7 @@ class _SignUpState extends State<SignUp> {
   late String email, fullname, username, password;
   final formKey = GlobalKey<FormState>();
   final firebaseAuth = FirebaseAuth.instance;
+  final authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class _SignUpState extends State<SignUp> {
                 decoration: const BoxDecoration(
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: AssetImage("assets/images/waves.png"),
+                    image: AssetImage("assets/images/header.png"),
                   ),
                 ),
               ),
@@ -109,7 +110,10 @@ class _SignUpState extends State<SignUp> {
           formKey.currentState!.save();
           final result =
             await authService.signUp(email, username, fullname, password);
-          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: ((context) => HomePage())), (route) => false);
+          Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: ((context) => HomePage())), 
+            (route) => false
+          );
         } else {
   
         }
