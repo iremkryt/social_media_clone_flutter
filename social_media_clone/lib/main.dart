@@ -3,6 +3,8 @@ import 'package:social_media_clone/pages/auth/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:social_media_clone/pages/auth/sign_up.dart';
 import 'package:social_media_clone/pages/home_page.dart';
+import 'package:social_media_clone/pages/tab_bar_controller.dart';
+import 'package:social_media_clone/utils/customColors.dart';
 import 'firebase_options.dart';
 
 void main() async{
@@ -27,9 +29,9 @@ class MyApp extends StatelessWidget {
         "/homePage" :(context) => HomePage(),
       },
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: CustomColors.ScaffoldBackgroundColor,
       ),
-      home: const LoginPage(),
+      home: TabBarController(),
     );
   }
 }
