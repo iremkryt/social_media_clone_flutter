@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
       },
       theme: ThemeData(
         scaffoldBackgroundColor: CustomColors.ScaffoldBackgroundColor,
+        appBarTheme: AppBarTheme(color: CustomColors.ScaffoldBackgroundColor),
       ),
       home: TabBarController(),
     );
